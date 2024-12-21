@@ -1,6 +1,15 @@
 const { pool,testConnection} = require("../dbConnection.js");
+const bcrypt = require('bcryptjs');
 
 const SQL_QUERIES = {
+    insert_users: async (connection) => {
+        const hashedPassword = await bcrypt.hash('admin123', 10);
+        await connection.query(`
+            INSERT INTO User (username, password) VALUES
+            ('admin', ?)
+        `, [hashedPassword]);
+    },
+
     insert_customers: `
         INSERT INTO Customer (first_name, last_name) VALUES
         ('John', 'Doe'),
@@ -29,7 +38,11 @@ const hydrateDatabase = async () => {
     try {
         // Execute queries in sequence
         for (const [key, query] of Object.entries(SQL_QUERIES)) {
-            await connection.query(query);
+            if (typeof query === 'function') {
+                await query(connection);
+            } else {
+                await connection.query(query);
+            }
             console.log(`Executed ${key} successfully`);
         }
         

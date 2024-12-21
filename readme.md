@@ -218,3 +218,35 @@ npm run test
 ```
     DELETE /orders/1
 ```
+
+## Authentication
+
+The API uses JWT (JSON Web Token) for securing endpoints. All order-related endpoints require authentication.
+
+### Auth Endpoints
+
+1. Register New User
+```
+POST /auth/register { "username": "newuser", "password": "userpass123" }
+```
+
+2. Login User
+```
+POST /auth/login { "username": "newuser", "password": "userpass123" }
+```
+
+{ "token": "eyJhbGciOiJIUzI1NiIsInR5..." }
+
+
+### Using Authentication
+
+1. Get token through register or login
+2. Add token to request headers:
+```
+Authorization: Bearer your_token_here
+```
+
+Default Admin Credentials:
+
+Username: admin
+Password: admin123

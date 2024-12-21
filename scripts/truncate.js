@@ -10,6 +10,7 @@ const truncateDatabase = async () => {
         await connection.query('TRUNCATE TABLE Product');
         await connection.query('TRUNCATE TABLE Contact_Mech');
         await connection.query('TRUNCATE TABLE Customer');
+        await connection.query('TRUNCATE TABLE User');
         
         await connection.query('SET FOREIGN_KEY_CHECKS = 1');
         

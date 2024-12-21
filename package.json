@@ -7,14 +7,16 @@
     "start": "node --env-file=.env app.js",
     "test": "node test/apitest.js",
     "truncate": "node scripts/truncate.js",
-    "hydrate" : "node scripts/hydrate.js"
+    "hydrate": "node scripts/hydrate.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
     "moment": "^2.30.1",
     "mysql2": "^3.11.5"
   },

@@ -8,9 +8,16 @@ const { testConnection} = require("./dbConnection");
 // middleware to parse the incoming request body
 app.use(express.json());
 
-// import order routes
+// import routes
+const authRoute = require("./routes/auth");
 const orderRoute = require("./routes/order");
-app.use("/", orderRoute);
+
+// auth routes (unprotected)
+app.use("/auth", authRoute);
+
+// protect order routes with auth middleware
+const auth = require("./middleware/auth");
+app.use("/", auth, orderRoute);
 
 // test db connection
 testConnection();
