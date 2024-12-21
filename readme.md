@@ -1,11 +1,14 @@
+# RESTful API Development with Javascript and MySQL
+
+Problem Statement
+In this assignment, you will develop a set of RESTful APIs capable of performing CRUD (Create, Read, Update, Delete) operations using HTTP requests. You will set up a MySQL database with specific tables, insert sample data, and implement REST APIs to process orders for an e-commerce system.
+
+=>
+
 todo-
 1. design db
 2. write sql scripts
 3. write apis
-
-db info-
-1. primary key - auto increment
-2. foreign key - reference to another table
 
 ## Creating Tables-
 
@@ -16,8 +19,6 @@ db info-
     last_name VARCHAR(255) NOT NULL,
 );
 ```
-
-// contact mechanism/address
 2. Contact_Mech
 ``` CREATE TABLE Contact_Mech (
     contact_mech_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -30,8 +31,7 @@ db info-
     email VARCHAR(100),
     FOREIGN KEY (customer_id) REFERENCES Customer(customer_id)
 );
-
-// product table
+```
 3. Product
 ``` CREATE TABLE Product (
     product_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -40,8 +40,6 @@ db info-
     size VARCHAR(10)
 );
 ```
-
-// order header
 4. Order_Header
 ```
 CREATE TABLE Order_Header (
@@ -55,8 +53,6 @@ CREATE TABLE Order_Header (
     FOREIGN KEY (billing_contact_mech_id) REFERENCES Contact_Mech(contact_mech_id)
 );
 ```
-
-// order item
 5. Order_Item
 ```
 CREATE TABLE Order_Item (
@@ -105,66 +101,58 @@ INSERT INTO Product (product_name, color, size) VALUES
 
 # API Creation
 
-createOrder:
-1. Insert order header first
-2. Insert all order items using the new order_id
-3. Return success with new order ID
+- createOrder:
+    1. Insert order header first
+    2. Insert all order items using the new order_id
+    3. Return success with new order ID
 
-getOrder:
-1. Execute JOIN query on Order_Header to fetch:
-   - Order header details oh
-   - Associated order items oi
-   - Related customer info c
-   - Contact mechanism details cm
-2. Return complete order details
+- getOrder:
+    1. Execute JOIN query on Order_Header to fetch:
+       - Order header details oh
+       - Associated order items oi
+       - Related customer info c
+       - Contact mechanism details cm
+    2. Return complete order details
 
-updateOrder:
-Steps:
-1. Extract shipping and billing contact IDs from order_id
-2. Update Order_Header table
-3. Return success message
+- updateOrder:
+    1. Extract shipping and billing contact IDs from order_id
+    2. Update Order_Header table
+    3. Return success message
 
-deleteOrder:
-Steps:
-1. Delete order items first (maintain referential integrity)
-2. Delete order header
-3. Return success message
+- deleteOrder:
+    1. Delete order items first (maintain referential   integrity)
+    2. Delete order header
+    3. Return success message
 
-addOrderItem:
-Steps:
-1. Insert new item into Order_Item table
-2. Return success message
+- addOrderItem:
+    1. Insert new item into Order_Item table
+    2. Return success message
 
-updateOrderItem:
-Steps:
-1. Update specific order item using order_id and item_id
-2. Return success message
+- updateOrderItem:
+    1. Update specific order item using order_id and item_id
+    2. Return success message
 
-deleteOrderItem:
-Steps:
-1. Delete specific item using order_id and item_id
-2. Return success message
+- deleteOrderItem:
+    1. Delete specific item using order_id and item_id
+    2. Return success message
 
-
-
-
-
-## usage-
+## Usage-
 
 1. Start Development Server
 ```
 npm run dev
 ```
-Truncate Database (Optional)
+2. Truncate Database (Optional)
 ```
 npm run truncate
 ```
-Hydrate Database with Sample Data
+3. Hydrate Database with Sample Data
 ```
 npm run hydrate
 ```
-```
 Run API Tests
+
+```
 npm run test
 ```
 
@@ -180,46 +168,53 @@ npm run test
 ## api documentation-
 
 1. Create Order
-POST /orders
-{
-    "order_date": "2024-01-20",
-    "customer_id": 1,
-    "shipping_contact_mech_id": 1,
-    "billing_contact_mech_id": 2,
-    "order_items": [
-        {
-            "product_id": 1,
-            "quantity": 2,
-            "status": "CREATED"
-        },
-        {
-            "product_id": 2,
-            "quantity": 1,
-            "status": "CREATED"
-        }
-    ]
-}
-
+```
+    POST /orders
+    {
+        "order_date": "2024-01-20",
+        "customer_id": 1,
+        "shipping_contact_mech_id": 1,
+        "billing_contact_mech_id": 2,
+        "order_items": [
+            {
+                "product_id": 1,
+                "quantity": 2,
+                "status": "CREATED"
+            },
+            {
+                "product_id": 2,
+                "quantity": 1,
+                "status": "CREATED"
+            }
+        ]
+    }
+```
 2. Retrieve Order
-GET /orders/1
-
+```
+    GET /orders/1
+```
 3. Update Order Item
-PUT /orders/1/items/2
-{
-    "quantity": 2,
-    "status": "UPDATED"
-}
-
+```
+    PUT /orders/1/items/2
+    {
+        "quantity": 2,
+        "status": "UPDATED"
+    }
+```
 4. Add Order Item
-POST /orders/1/items
-{
-    "product_id": 3,
-    "quantity": 1,
-    "status": "CREATED"
-}
-
+```
+    POST /orders/1/items
+    {
+        "product_id": 3,
+        "quantity": 1,
+        "status": "CREATED"
+    }
+```
 5. Delete Order Item
-DELETE /orders/1/items/1
-
+```
+    DELETE /orders/1/items/1
+```
 6. Delete Order
-DELETE /orders/1
+```
+    DELETE /orders/1
+```
