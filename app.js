@@ -1,12 +1,14 @@
 //standard express setup
 const express = require("express");
 const app = express();
+const cors = require("cors");
 
 // import database connection
 const { testConnection} = require("./dbConnection");
 
 // middleware to parse the incoming request body
 app.use(express.json());
+app.use(cors());
 
 // import routes
 const authRoute = require("./routes/auth");

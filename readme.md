@@ -250,3 +250,11 @@ Default Admin Credentials:
 
 Username: admin
 Password: admin123
+
+## Screenshots-
+![image](./assets/1.png)
+![image](./assets/2.png)
+![image](./assets/3.png)
+![image](./assets/4.png)
+![image](./assets/5.png)
+![image](./assets/6.png)
